@@ -132,7 +132,6 @@ public abstract interface annotation class coil/annotation/ExperimentalCoilApi :
 }
 
 public final class coil/decode/BitmapFactoryDecoder : coil/decode/Decoder {
-	public static final field Companion Lcoil/decode/BitmapFactoryDecoder$Companion;
 	public fun <init> (Lcoil/decode/ImageSource;Lcoil/request/Options;)V
 	public fun <init> (Lcoil/decode/ImageSource;Lcoil/request/Options;Lkotlinx/coroutines/sync/Semaphore;)V
 	public synthetic fun <init> (Lcoil/decode/ImageSource;Lcoil/request/Options;Lkotlinx/coroutines/sync/Semaphore;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -349,14 +348,6 @@ public final class coil/memory/MemoryCache$Key : android/os/Parcelable {
 	public fun writeToParcel (Landroid/os/Parcel;I)V
 }
 
-public final class coil/memory/MemoryCache$Key$Creator : android/os/Parcelable$Creator {
-	public fun <init> ()V
-	public final fun createFromParcel (Landroid/os/Parcel;)Lcoil/memory/MemoryCache$Key;
-	public synthetic fun createFromParcel (Landroid/os/Parcel;)Ljava/lang/Object;
-	public final fun newArray (I)[Lcoil/memory/MemoryCache$Key;
-	public synthetic fun newArray (I)[Ljava/lang/Object;
-}
-
 public final class coil/memory/MemoryCache$Value {
 	public fun <init> (Landroid/graphics/Bitmap;Ljava/util/Map;)V
 	public synthetic fun <init> (Landroid/graphics/Bitmap;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -374,6 +365,11 @@ public final class coil/memory/MemoryCache$Value {
 public final class coil/network/HttpException : java/lang/RuntimeException {
 	public fun <init> (Lokhttp3/Response;)V
 	public final fun getResponse ()Lokhttp3/Response;
+}
+
+public final class coil/network/OkHttpClients {
+	public static final fun imageLoaderDiskCache (Lokhttp3/OkHttpClient$Builder;Landroid/content/Context;)Lokhttp3/OkHttpClient$Builder;
+	public static final fun imageLoaderDiskCache (Lokhttp3/OkHttpClient$Builder;Lokhttp3/Cache;)Lokhttp3/OkHttpClient$Builder;
 }
 
 public final class coil/request/-Parameters {
@@ -495,8 +491,9 @@ public final class coil/request/ErrorResult : coil/request/ImageResult {
 }
 
 public final class coil/request/ImageRequest {
-	public synthetic fun <init> (Landroid/content/Context;Ljava/lang/Object;Lcoil/target/Target;Lcoil/request/ImageRequest$Listener;Lcoil/memory/MemoryCache$Key;Landroid/graphics/ColorSpace;Lkotlin/Pair;Lcoil/decode/Decoder$Factory;Ljava/util/List;Lokhttp3/Headers;Lcoil/request/Parameters;Landroidx/lifecycle/Lifecycle;Lcoil/size/SizeResolver;Lcoil/size/Scale;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlinx/coroutines/CoroutineDispatcher;Lcoil/transition/Transition$Factory;Lcoil/size/Precision;Landroid/graphics/Bitmap$Config;ZZZLcoil/request/CachePolicy;Lcoil/request/CachePolicy;Lcoil/request/CachePolicy;Lcoil/memory/MemoryCache$Key;Ljava/lang/Integer;Landroid/graphics/drawable/Drawable;Ljava/lang/Integer;Landroid/graphics/drawable/Drawable;Ljava/lang/Integer;Landroid/graphics/drawable/Drawable;Lcoil/request/DefinedRequestOptions;Lcoil/request/DefaultRequestOptions;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Landroid/content/Context;Ljava/lang/Object;Lcoil/target/Target;Lcoil/request/ImageRequest$Listener;Lcoil/memory/MemoryCache$Key;Landroid/graphics/ColorSpace;Lkotlin/Pair;Lcoil/decode/Decoder$Factory;Ljava/util/List;Lokhttp3/Headers;Lcoil/request/Parameters;Landroidx/lifecycle/Lifecycle;Lcoil/size/SizeResolver;Lcoil/size/Scale;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlinx/coroutines/CoroutineDispatcher;Lcoil/transition/Transition$Factory;Lcoil/size/Precision;Landroid/graphics/Bitmap$Config;ZZZZLcoil/request/CachePolicy;Lcoil/request/CachePolicy;Lcoil/request/CachePolicy;Lcoil/memory/MemoryCache$Key;Ljava/lang/Integer;Landroid/graphics/drawable/Drawable;Ljava/lang/Integer;Landroid/graphics/drawable/Drawable;Ljava/lang/Integer;Landroid/graphics/drawable/Drawable;Lcoil/request/DefinedRequestOptions;Lcoil/request/DefaultRequestOptions;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAllowConversionToBitmap ()Z
 	public final fun getAllowHardware ()Z
 	public final fun getAllowRgb565 ()Z
 	public final fun getBitmapConfig ()Landroid/graphics/Bitmap$Config;
@@ -542,6 +539,7 @@ public final class coil/request/ImageRequest$Builder {
 	public fun <init> (Lcoil/request/ImageRequest;Landroid/content/Context;)V
 	public synthetic fun <init> (Lcoil/request/ImageRequest;Landroid/content/Context;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun addHeader (Ljava/lang/String;Ljava/lang/String;)Lcoil/request/ImageRequest$Builder;
+	public final fun allowConversionToBitmap (Z)Lcoil/request/ImageRequest$Builder;
 	public final fun allowHardware (Z)Lcoil/request/ImageRequest$Builder;
 	public final fun allowRgb565 (Z)Lcoil/request/ImageRequest$Builder;
 	public final fun bitmapConfig (Landroid/graphics/Bitmap$Config;)Lcoil/request/ImageRequest$Builder;
@@ -733,14 +731,6 @@ public final class coil/size/OriginalSize : coil/size/Size {
 	public fun writeToParcel (Landroid/os/Parcel;I)V
 }
 
-public final class coil/size/OriginalSize$Creator : android/os/Parcelable$Creator {
-	public fun <init> ()V
-	public final fun createFromParcel (Landroid/os/Parcel;)Lcoil/size/OriginalSize;
-	public synthetic fun createFromParcel (Landroid/os/Parcel;)Ljava/lang/Object;
-	public final fun newArray (I)[Lcoil/size/OriginalSize;
-	public synthetic fun newArray (I)[Ljava/lang/Object;
-}
-
 public final class coil/size/PixelSize : coil/size/Size {
 	public static final field CREATOR Landroid/os/Parcelable$Creator;
 	public fun <init> (II)V
@@ -755,14 +745,6 @@ public final class coil/size/PixelSize : coil/size/Size {
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 	public fun writeToParcel (Landroid/os/Parcel;I)V
-}
-
-public final class coil/size/PixelSize$Creator : android/os/Parcelable$Creator {
-	public fun <init> ()V
-	public final fun createFromParcel (Landroid/os/Parcel;)Lcoil/size/PixelSize;
-	public synthetic fun createFromParcel (Landroid/os/Parcel;)Ljava/lang/Object;
-	public final fun newArray (I)[Lcoil/size/PixelSize;
-	public synthetic fun newArray (I)[Ljava/lang/Object;
 }
 
 public final class coil/size/Precision : java/lang/Enum {
@@ -924,10 +906,5 @@ public abstract interface class coil/util/Logger {
 	public abstract fun getLevel ()I
 	public abstract fun log (Ljava/lang/String;ILjava/lang/String;Ljava/lang/Throwable;)V
 	public abstract fun setLevel (I)V
-}
-
-public final class coil/util/OkHttpClients {
-	public static final fun imageLoaderDiskCache (Lokhttp3/OkHttpClient$Builder;Landroid/content/Context;)Lokhttp3/OkHttpClient$Builder;
-	public static final fun imageLoaderDiskCache (Lokhttp3/OkHttpClient$Builder;Lokhttp3/Cache;)Lokhttp3/OkHttpClient$Builder;
 }
 
