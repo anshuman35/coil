@@ -34,6 +34,6 @@ class FileFetcherTest {
 
         assertTrue(result is SourceResult)
         assertEquals("image/jpeg", result.mimeType)
-        assertNotNull(result.source.file)
+        assertNotNull(result.source.file())
     }
 }

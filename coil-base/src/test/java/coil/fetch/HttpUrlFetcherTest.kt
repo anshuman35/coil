@@ -8,6 +8,7 @@ import androidx.test.core.app.ApplicationProvider
 import coil.ImageLoader
 import coil.decode.DataSource
 import coil.network.HttpException
+import coil.network.imageLoaderDiskCache
 import coil.request.CachePolicy
 import coil.request.Options
 import coil.size.PixelSize
@@ -158,7 +159,7 @@ class HttpUrlFetcherTest {
         }
 
         assertTrue(result is SourceResult)
-        assertNotNull(result.source.file)
+        assertNotNull(result.source.file())
         assertEquals(DataSource.DISK, result.dataSource)
     }
 }

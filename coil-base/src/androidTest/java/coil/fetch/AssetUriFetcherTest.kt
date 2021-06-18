@@ -46,6 +46,6 @@ class AssetUriFetcherTest {
 
         assertTrue(result is SourceResult)
         assertEquals("image/jpeg", result.mimeType)
-        assertFalse(result.source.source!!.exhausted())
+        assertFalse(result.source.source().exhausted())
     }
 }

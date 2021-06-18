@@ -2,7 +2,7 @@ package coil.util
 
 import android.content.Context
 import android.view.View
-import coil.network.imageLoaderDiskCache
+import coil.network.imageLoaderDiskCache // ktlint-disable no-unused-imports
 import coil.request.Disposable
 import coil.request.ImageResult
 import okhttp3.Cache

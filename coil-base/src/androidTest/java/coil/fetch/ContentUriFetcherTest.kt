@@ -81,7 +81,7 @@ class ContentUriFetcherTest {
 
         assertTrue(result is SourceResult)
         assertEquals("image/jpeg", result.mimeType)
-        assertFalse(result.source.source!!.exhausted())
+        assertFalse(result.source.source().exhausted())
     }
 
     /** Create and insert a fake contact. Return its ID. */
