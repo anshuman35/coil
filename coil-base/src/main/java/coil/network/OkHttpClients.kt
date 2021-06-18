@@ -1,5 +1,4 @@
 @file:JvmName("OkHttpClients")
-@file:Suppress("unused")
 
 package coil.network
 
