@@ -5,6 +5,7 @@ package coil.request
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.ColorSpace
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build.VERSION.SDK_INT
@@ -117,6 +118,9 @@ class ImageRequest private constructor(
     /** @see Builder.bitmapConfig */
     val bitmapConfig: Bitmap.Config,
 
+    /** @see Builder.allowConversionToBitmap */
+    val allowConversionToBitmap: Boolean,
+
     /** @see Builder.allowHardware */
     val allowHardware: Boolean,
 
@@ -188,6 +192,7 @@ class ImageRequest private constructor(
             transitionFactory == other.transitionFactory &&
             precision == other.precision &&
             bitmapConfig == other.bitmapConfig &&
+            allowConversionToBitmap == other.allowConversionToBitmap &&
             allowHardware == other.allowHardware &&
             allowRgb565 == other.allowRgb565 &&
             premultipliedAlpha == other.premultipliedAlpha &&
@@ -227,6 +232,7 @@ class ImageRequest private constructor(
         result = 31 * result + transitionFactory.hashCode()
         result = 31 * result + precision.hashCode()
         result = 31 * result + bitmapConfig.hashCode()
+        result = 31 * result + allowConversionToBitmap.hashCode()
         result = 31 * result + allowHardware.hashCode()
         result = 31 * result + allowRgb565.hashCode()
         result = 31 * result + premultipliedAlpha.hashCode()
@@ -307,6 +313,7 @@ class ImageRequest private constructor(
         private var allowHardware: Boolean?
         private var allowRgb565: Boolean?
         private var premultipliedAlpha: Boolean
+        private var allowConversionToBitmap: Boolean
         private var memoryCachePolicy: CachePolicy?
         private var diskCachePolicy: CachePolicy?
         private var networkCachePolicy: CachePolicy?
@@ -349,6 +356,7 @@ class ImageRequest private constructor(
             allowHardware = null
             allowRgb565 = null
             premultipliedAlpha = true
+            allowConversionToBitmap = true
             memoryCachePolicy = null
             diskCachePolicy = null
             networkCachePolicy = null
@@ -391,6 +399,7 @@ class ImageRequest private constructor(
             allowHardware = request.defined.allowHardware
             allowRgb565 = request.defined.allowRgb565
             premultipliedAlpha = request.premultipliedAlpha
+            allowConversionToBitmap = request.allowConversionToBitmap
             memoryCachePolicy = request.defined.memoryCachePolicy
             diskCachePolicy = request.defined.diskCachePolicy
             networkCachePolicy = request.defined.networkCachePolicy
@@ -605,6 +614,15 @@ class ImageRequest private constructor(
          */
         fun decoderFactory(factory: Decoder.Factory) = apply {
             this.decoderFactory = factory
+        }
+
+        /**
+         * Allow converting the result drawable to a bitmap to apply any [transformations].
+         *
+         * If false and the result drawable is not a [BitmapDrawable] any [transformations] will be ignored.
+         */
+        fun allowConversionToBitmap(enable: Boolean) = apply {
+            this.allowConversionToBitmap = enable
         }
 
         /**
@@ -881,6 +899,7 @@ class ImageRequest private constructor(
                 allowHardware = allowHardware ?: defaults.allowHardware,
                 allowRgb565 = allowRgb565 ?: defaults.allowRgb565,
                 premultipliedAlpha = premultipliedAlpha,
+                allowConversionToBitmap = allowConversionToBitmap,
                 memoryCachePolicy = memoryCachePolicy ?: defaults.memoryCachePolicy,
                 diskCachePolicy = diskCachePolicy ?: defaults.diskCachePolicy,
                 networkCachePolicy = networkCachePolicy ?: defaults.networkCachePolicy,

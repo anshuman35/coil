@@ -361,6 +361,15 @@ internal class EngineInterceptor(
         val transformations = request.transformations
         if (transformations.isEmpty()) return result
 
+        // Skip the transformations is converting to a bitmap is disabled.
+        if (result.drawable !is BitmapDrawable && !request.allowConversionToBitmap) {
+            logger?.log(TAG, Log.INFO) {
+                val type = result.drawable::class.java.canonicalName
+                "allowConversionToBitmap=false, skipping transformations for type $type"
+            }
+            return result
+        }
+
         // Apply the transformations.
         return withContext(request.transformationDispatcher) {
             val input = convertDrawableToBitmap(result.drawable, options, transformations)
