@@ -31,6 +31,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class AnimatedAndNormalTransformationTest {
+
     private lateinit var context: Context
     private lateinit var imageLoader: ImageLoader
     private lateinit var imageRequestBuilder: ImageRequest.Builder
@@ -50,7 +51,6 @@ class AnimatedAndNormalTransformationTest {
             .memoryCachePolicy(CachePolicy.DISABLED)
             .diskCachePolicy(CachePolicy.DISABLED)
             .build()
-
         imageRequestBuilder = ImageRequest.Builder(context)
             .bitmapConfig(Bitmap.Config.ARGB_8888)
             .transformations(CircleCropTransformation())
