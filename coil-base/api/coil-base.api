@@ -39,6 +39,7 @@ public final class coil/EventListener$Companion {
 }
 
 public final class coil/EventListener$DefaultImpls {
+public static fun decodeEnd (Lcoil/EventListener;Lcoil/request/ImageRequest;)
 	public static fun decodeEnd (Lcoil/EventListener;Lcoil/request/ImageRequest;Lcoil/decode/Decoder;Lcoil/decode/Options;Lcoil/decode/DecodeResult;)V
 	public static fun decodeStart (Lcoil/EventListener;Lcoil/request/ImageRequest;Lcoil/decode/Decoder;Lcoil/decode/Options;)V
 	public static fun fetchEnd (Lcoil/EventListener;Lcoil/request/ImageRequest;Lcoil/fetch/Fetcher;Lcoil/decode/Options;Lcoil/fetch/FetchResult;)V
